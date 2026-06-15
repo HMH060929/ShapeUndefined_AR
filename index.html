@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>形格不定 AR</title>
+
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+
+      #hint {
+        position: fixed;
+        top: 16px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: white;
+        z-index: 999;
+        font-size: 16px;
+        text-shadow: 0 0 8px black;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="hint">请将摄像头对准人格明信片</div>
+
+    <a-scene
+      mindar-image="imageTargetSrc: ./targets.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-assets>
+        <a-asset-item id="shape01" src="./models/shape01.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model
+          src="#shape01"
+          position="0 0 0.15"
+          rotation="0 0 0"
+          scale="0.4 0.4 0.4"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+        ></a-gltf-model>
+
+        <a-light type="ambient" intensity="1.2"></a-light>
+        <a-light type="directional" position="0 1 1" intensity="1"></a-light>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
